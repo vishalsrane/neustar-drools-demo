@@ -1,5 +1,6 @@
 package com.neustar.droolsdemo.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.neustar.droolsdemo.domain.UserData;
 import com.neustar.droolsdemo.domain.UserDataType;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,9 @@ public class UserDataTypeDto {
     private Long id;
 
     private String userDataKey;
-    private Set<UserData> userDataSet;
+
+//    @JsonIgnore
+//    private Set<UserData> userDataSet;
 
     public static UserDataType dtoToDomain(UserDataTypeDto userDataTypeDto){
         UserDataType userDataType = new UserDataType();

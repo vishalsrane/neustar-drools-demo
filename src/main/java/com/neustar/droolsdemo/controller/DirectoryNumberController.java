@@ -26,7 +26,13 @@ public class DirectoryNumberController {
     }
 
     @GetMapping
-    public Set<DirectoryNumberDto> findAll(){
+    public List<DirectoryNumberDto> findAll(){
         return this.directoryNumberService.findAll();
+    }
+
+    @GetMapping("/id/{dnId}/action")
+    public String strAction(@PathVariable long dnId, @RequestParam String action){
+        String stateAfterApplyingStr = directoryNumberService.updateState(dnId, action);
+        return stateAfterApplyingStr;
     }
 }

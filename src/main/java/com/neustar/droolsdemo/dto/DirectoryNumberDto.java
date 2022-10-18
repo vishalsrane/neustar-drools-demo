@@ -18,9 +18,11 @@ public class DirectoryNumberDto {
 
     private String dn;
     private String resourceState;
-    private int currentOcn;
+    private Integer currentOcn;
 
     Set<UserDataDto> userData = new HashSet<>();
+
+    private String action;
 
     public static DirectoryNumber dtoToDomain(DirectoryNumberDto directoryNumberDto){
         DirectoryNumber directoryNumber = new DirectoryNumber();
@@ -34,7 +36,10 @@ public class DirectoryNumberDto {
         BeanUtils.copyProperties(directoryNumber, directoryNumberDto, "userDataSet" );
         Set<UserDataDto> userDataDtoSet = directoryNumber.getUserData().stream().map(userData -> {
             UserDataDto userDataDto = new UserDataDto();
-            BeanUtils.copyProperties(userData, userDataDto);
+            BeanUtils.copyProperties(userData, userDataDto, "userDataType");
+            UserDataTypeDto userDataTypeDto = new UserDataTypeDto();
+            BeanUtils.copyProperties(userData.getUserDataType(), userDataTypeDto);
+            userDataDto.setUserDataType(userDataTypeDto);
             return userDataDto;
         }).collect(Collectors.toSet());
 

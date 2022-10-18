@@ -14,7 +14,7 @@ public class UserDataDto {
 
     private String userData;
 
-    private UserDataType userDataType;
+    private UserDataTypeDto userDataType;
 
 }
 
