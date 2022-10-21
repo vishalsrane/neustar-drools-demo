@@ -8,21 +8,75 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class DirectoryNumberDto {
 
     private Long id;
-
     private String dn;
     private String resourceState;
     private Integer currentOcn;
-
     Set<UserDataDto> userData = new HashSet<>();
-
     private String action;
+
+    public DirectoryNumberDto() {
+    }
+
+    public DirectoryNumberDto(Long id, String dn, String resourceState, Integer currentOcn, Set<UserDataDto> userData, String action) {
+        this.id = id;
+        this.dn = dn;
+        this.resourceState = resourceState;
+        this.currentOcn = currentOcn;
+        this.userData = userData;
+        this.action = action;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDn() {
+        return dn;
+    }
+
+    public void setDn(String dn) {
+        this.dn = dn;
+    }
+
+    public String getResourceState() {
+        return resourceState;
+    }
+
+    public void setResourceState(String resourceState) {
+        this.resourceState = resourceState;
+    }
+
+    public Integer getCurrentOcn() {
+        return currentOcn;
+    }
+
+    public void setCurrentOcn(Integer currentOcn) {
+        this.currentOcn = currentOcn;
+    }
+
+    public Set<UserDataDto> getUserData() {
+        return userData;
+    }
+
+    public void setUserData(Set<UserDataDto> userData) {
+        this.userData = userData;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public static DirectoryNumber dtoToDomain(DirectoryNumberDto directoryNumberDto){
         DirectoryNumber directoryNumber = new DirectoryNumber();

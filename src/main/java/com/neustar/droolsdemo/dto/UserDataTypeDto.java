@@ -12,18 +12,33 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import java.util.Set;
 
-//@Data
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class UserDataTypeDto {
     private Long id;
-
     private String userDataKey;
 
-//    @JsonIgnore
-//    private Set<UserData> userDataSet;
+    public UserDataTypeDto(Long id, String userDataKey) {
+        this.id = id;
+        this.userDataKey = userDataKey;
+    }
+
+    public UserDataTypeDto() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserDataKey() {
+        return userDataKey;
+    }
+
+    public void setUserDataKey(String userDataKey) {
+        this.userDataKey = userDataKey;
+    }
 
     public static UserDataType dtoToDomain(UserDataTypeDto userDataTypeDto){
         UserDataType userDataType = new UserDataType();

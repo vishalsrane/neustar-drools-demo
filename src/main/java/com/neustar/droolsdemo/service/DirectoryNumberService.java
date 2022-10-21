@@ -2,6 +2,7 @@ package com.neustar.droolsdemo.service;
 
 import com.neustar.droolsdemo.domain.DirectoryNumber;
 import com.neustar.droolsdemo.dto.DirectoryNumberDto;
+import com.neustar.droolsdemo.dto.UserDataDto;
 import com.neustar.droolsdemo.repository.DirectoryNumberRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -56,9 +57,9 @@ public class DirectoryNumberService {
         directoryNumber.setResourceState(newState);
         directoryNumberRepository.save(directoryNumber);
         DirectoryNumberDto directoryNumberDto = DirectoryNumberDto.domainToDto(directoryNumber);
+        directoryNumberDto.setAction(action);
         directoryNumberDto = applyStr(directoryNumberDto);
         String stateAfterApplyingStr = directoryNumberDto.getResourceState();
-        directoryNumberDto.setAction(action);
         if(!newState.equalsIgnoreCase(stateAfterApplyingStr)){
             directoryNumber.setResourceState(stateAfterApplyingStr);
             directoryNumberRepository.save(directoryNumber);
@@ -69,6 +70,11 @@ public class DirectoryNumberService {
     public DirectoryNumberDto applyStr(DirectoryNumberDto directoryNumberDto){
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(directoryNumberDto);
+        for(UserDataDto userDataDto: directoryNumberDto.getUserData()){
+            kieSession.insert(userDataDto);
+            kieSession.insert(userDataDto.getUserDataType());
+        }
+
         kieSession.fireAllRules();
         kieSession.dispose();
         return directoryNumberDto;
